@@ -1,19 +1,15 @@
 import Redis from "ioredis";
 
-console.log("REDIS_URL:", process.env.REDIS_URL);
-
 if (!process.env.REDIS_URL) {
   throw new Error("REDIS_URL is not defined ❌");
 }
 
-const redis = new Redis(process.env.REDIS_URL);
+export const redisConnection = new Redis(process.env.REDIS_URL);
 
-redis.on("connect", () => {
+redisConnection.on("connect", () => {
   console.log("Connected to Redis ✅");
 });
 
-redis.on("error", (err) => {
+redisConnection.on("error", (err) => {
   console.error("Redis error ❌", err);
 });
-
-export default redis;
